@@ -1,6 +1,7 @@
 body {
     background-color: #333131;
     color: white;
+    text-align: center;
 }
 
 #container {
@@ -29,5 +30,4 @@ body {
     background-color: white;
     color: black;
     height: 30px;
-    text-align: center;
 }
