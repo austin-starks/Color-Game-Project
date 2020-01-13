@@ -1,4 +1,4 @@
-var colors = generateColorsArray(6);
+var colors = [];
 var heading = document.getElementById("heading");
 var squares = document.querySelectorAll(".square");
 var goalColor = pickRandomColor();
@@ -10,35 +10,24 @@ var score = 0;
 var scoreMultiplier = 1.0;
 var scoreDisplay = document.getElementById("scoreDisplay");
 
-var easyButton = document.querySelector("#easy")
-var hardButton = document.querySelector("#hard")
+var diffButtons = document.querySelectorAll(".difficulty")
+
 var difficulty = 'hard'
 
-startGame();
+init();
 
-function startGame() {
-    easyButton.addEventListener("click", switchDifficulty)
-    hardButton.addEventListener("click", switchDifficulty)
+function init() {
+    for (var i = 0; i < diffButtons.length; i++) {
+        diffButtons[i].addEventListener("click", switchDifficulty)
+    }
 
 
     goalDisplay.textContent = goalColor;
     resetButton.addEventListener("click", function () {
-        if (difficulty === 'hard') {
-            resetGame(6);
-        } else {
-            resetGame(3);
-        }
+        resetGame();
     })
 
-
-
-    for (var i = 0; i < squares.length; i++) {
-        // add initial colors to squares
-        squares[i].style.backgroundColor = colors[i];
-
-        // add click listener to squares
-        squares[i].addEventListener("click", addSquareListener)
-    }
+    resetGame();
 }
 
 function addSquareListener() {
@@ -49,12 +38,9 @@ function addSquareListener() {
         message.textContent = "Right! You're so good at this; great job! :)";
         changeColorsCorrect(clickedColor);
         resetButton.textContent = "Play again ";
-        if (difficulty === 'hard') {
-            var moreMult = 0.5;
-        } else {
-            var moreMult = 0.25;
-        }
-        updateScore(score + (100 * scoreMultiplier), scoreMultiplier + moreMult);
+        var moreMult;
+        difficulty === 'hard' ? moreMult = 0.5 : moreMult = 0.25;
+        updateScore(score + (1000 * scoreMultiplier), scoreMultiplier + moreMult);
         for (var i = 0; i < squares.length; i++) {
             squares[i].removeEventListener("click", addSquareListener);
         }
@@ -83,34 +69,36 @@ function switchDifficulty() {
 
     if (difficulty === 'easy') {
         difficulty = 'hard';
-        easyButton.disabled = false;
-        hardButton.disabled = true;
-        resetGame(6);
     }
     else {
         difficulty = 'easy';
-        easyButton.disabled = true;
-        hardButton.disabled = false;
-        resetGame(3);
     }
-    easyButton.classList.toggle("active");
-    hardButton.classList.toggle("active");
+    resetGame()
+    for (var i = 0; i < diffButtons.length; i++) {
+        diffButtons[i].disabled = !diffButtons[i].disabled;
+        diffButtons[i].classList.toggle("active");
+        diffButtons[i].classList.toggle("selected");
+    }
     resetScore()
 }
 
-function resetGame(numSquares) {
+function resetGame() {
+    if (difficulty === 'easy') {
+        var numSquares = 3;
+    } else {
+        var numSquares = 6;
+    }
     // pick 6 new colors
     colors = generateColorsArray(numSquares);
     // assign the 6 new colors to the 6 squares
-    for (var i = 0; i < colors.length; i++) {
-        squares[i].style.backgroundColor = colors[i];
-        squares[i].addEventListener("click", addSquareListener);
-    }
-
-    // change the last elements of the array to be grey if colors.length is 3
-    if (colors.length != squares.length) {
-        for (var i = colors.length; i < squares.length; i++) {
-            squares[i].style.backgroundColor = "#333131";
+    for (var i = 0; i < squares.length; i++) {
+        if (colors[i]) {
+            squares[i].style.display = 'block'
+            squares[i].style.backgroundColor = colors[i];
+            squares[i].addEventListener("click", addSquareListener);
+            // change the last elements of the array to be grey if colors.length is 3
+        } else {
+            squares[i].style.display = "none";
             squares[i].removeEventListener("click", addSquareListener);
         }
     }
@@ -120,7 +108,7 @@ function resetGame(numSquares) {
 
 
     // change the heading back to grey and the goal to the new goal
-    heading.style.backgroundColor = "#333131";
+    heading.style.backgroundColor = "slateblue";
 
     // Update the score: if message.textContent has "right" in it keep score
     // otherwise reset score
@@ -130,8 +118,8 @@ function resetGame(numSquares) {
         resetScore()
     }
 
-    // change the "right" or "wrong" message back to "pick a color"
-    message.textContent = "Pick a color ";
+    // change the "right" or "wrong" message back to ""
+    message.textContent = "";
 
     // change the text content to "New Colors "
     resetButton.textContent = "New Colors ";
@@ -145,11 +133,7 @@ function updateScore(newScore, scoreMult) {
 }
 
 function resetScore() {
-    if (difficulty === 'easy') {
-        updateScore(0, 0.25);
-    } else {
-        updateScore(0, 1.0);
-    }
+    difficulty === 'easy' ? updateScore(0, 0.25) : updateScore(0, 1.0);
 }
 
 function changeColorsCorrect(color) {

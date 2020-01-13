@@ -13,19 +13,19 @@
 
 <body>
     <div id="heading">
-        <h1>RGB Color Game</h1>
+        <h1 class='display-3'>RGB Color Game</h1>
         <h2>Learn How To Differentiate RGB Colors</h2>
         <h3>Goal: <span id="goalDisplay">rgb</span></h3>
     </div>
 
     <div id='subHeading'>
         <button id="newGame">New Colors </button>
-        <span id="message">Pick a color </span>
-        <button id="easy" type="button" class="" data-toggle="button" aria-pressed="false" autocomplete="off">
+        <span id="message"></span>
+        <button id="easy" type="button" class="difficulty" data-toggle="button" aria-pressed="false" autocomplete="off">
             Easy
         </button>
-        <button id="hard" type="button" class="active" data-toggle="button" aria-pressed="true" autocomplete="off"
-            disabled>
+        <button id="hard" type="button" class="active selected difficulty" data-toggle="button" aria-pressed="true"
+            autocomplete="off" disabled>
             Hard
         </button>
         <span id="score">Score: <span id="scoreDisplay">0</span></span>
