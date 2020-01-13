@@ -35,7 +35,7 @@ function addSquareListener() {
     // if the clicked color is the same as the goal color, tell the user they are correct, change the rest of the colors to that color, 
     // and change the heading to that color
     if (clickedColor === goalColor) {
-        message.textContent = "Right! :D";
+        message.textContent = "Right! :)";
         changeColorsCorrect(clickedColor);
         resetButton.textContent = "Play again ";
         var moreMult;
@@ -46,7 +46,7 @@ function addSquareListener() {
         }
     } // otherwise, tell the user they are wrong/try again, change the clicked color to the background color
     else if (clickedColor !== goalColor) {
-        message.textContent = "Try again! :)";
+        message.textContent = "Wrong!";
         this.style.backgroundColor = "#333131";
         resetScore();
     }
