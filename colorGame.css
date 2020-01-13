@@ -6,6 +6,7 @@ body {
 #container {
     max-width: 600px;   
     margin: 0 auto;
+    padding-top: 50px;
 }
 
 .square {
@@ -22,4 +23,11 @@ body {
     float: left;
     margin: 1.66%;
     background-color: #333131;
+}
+
+#subHeading {
+    background-color: white;
+    color: black;
+    height: 30px;
+    text-align: center;
 }

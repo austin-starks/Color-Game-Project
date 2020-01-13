@@ -1,11 +1,35 @@
 var colors = generateColorsArray(6);
 
+var heading = document.getElementById("heading");
 var squares = document.querySelectorAll(".square");
 var goalColor = pickRandomColor();
-var colorDisplay = document.getElementById("colorDisplay");
+var goalDisplay = document.getElementById("goalDisplay");
 var message = document.querySelector("#message");
+var resetButton = document.getElementById("newGame");
 
-colorDisplay.textContent = goalColor;
+goalDisplay.textContent = goalColor;
+resetButton.addEventListener("click", function () {
+    // pick 6 new colors
+    colors = generateColorsArray(6);
+    // assign the 6 new colors to the 6 squares
+    for (var i = 0; i < squares.length; i++) {
+        squares[i].style.backgroundColor = colors[i];
+    }
+
+    // change the goal to color to a random color
+    goalColor = pickRandomColor();
+
+
+    // change the heading back to grey and the goal to the new goal
+    heading.style.backgroundColor = "#333131";
+
+    // change the "right" or "wrong" message back to "pick a color"
+    message.textContent = "Pick a color "
+
+    // change the text content to "New Colors "
+    resetButton.textContent = "New Colors ";
+    goalDisplay.textContent = goalColor;
+})
 
 for (var i = 0; i < squares.length; i++) {
     // add initial colors to squares
@@ -16,10 +40,10 @@ for (var i = 0; i < squares.length; i++) {
         var clickedColor = this.style.backgroundColor;
         // if the clicked color is the same as the goal color, tell the user they are correct, change the rest of the colors to that color, 
         // and change the heading to that color
-        console.log(clickedColor, goalColor);
         if (clickedColor === goalColor) {
             message.textContent = "Right! You're so good at this; great job! :)";
             changeColorsCorrect(clickedColor);
+            resetButton.textContent = "Play again "
         } // otherwise, tell the user they are wrong/try again, change the clicked color to the background color
         else {
             message.textContent = "Wrong! Think a little bit harder!";
@@ -34,6 +58,7 @@ function changeColorsCorrect(color) {
     for (var i = 0; i < squares.length; i++) {
         squares[i].style.backgroundColor = color;
     }
+    heading.style.backgroundColor = color;
 }
 
 function pickRandomColor() {
