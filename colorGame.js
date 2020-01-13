@@ -55,6 +55,9 @@ function addSquareListener() {
             var moreMult = 0.25;
         }
         updateScore(score + (100 * scoreMultiplier), scoreMultiplier + moreMult);
+        for (var i = 0; i < squares.length; i++) {
+            squares[i].removeEventListener("click", addSquareListener);
+        }
     } // otherwise, tell the user they are wrong/try again, change the clicked color to the background color
     else if (clickedColor !== goalColor) {
         message.textContent = "Wrong! Think a little bit harder!";
@@ -92,6 +95,7 @@ function switchDifficulty() {
     }
     easyButton.classList.toggle("active");
     hardButton.classList.toggle("active");
+    resetScore()
 }
 
 function resetGame(numSquares) {
