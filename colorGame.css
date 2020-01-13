@@ -1,0 +1,25 @@
+body {
+    background-color: #333131;
+    color: white;
+}
+
+#container {
+    max-width: 600px;   
+    margin: 0 auto;
+}
+
+.square {
+    width: 30%;
+    padding-bottom: 30%;
+    float: left;
+    margin: 1.66%;
+    background-color: red;
+}
+
+.greySquare {
+    width: 30%;
+    padding-bottom: 30%;
+    float: left;
+    margin: 1.66%;
+    background-color: #333131;
+}
