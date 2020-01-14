@@ -7,4 +7,4 @@ In the game, 3 or 6 colors appear on the screen (depending on the difficulty) an
 
 I also implemented a score. The score multiplier increases the more colors the user gets correct in a row. If you get a color wrong, refresh the page, or reset the colors, the score returns to 0.
 
-Link to the game: https://austin-starks.github.io/Color_Game_Project/
+Link to the game: https://austin-starks.github.io/Color-Game-Project/
